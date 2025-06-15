@@ -1,17 +1,276 @@
-research_task:
-  description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+###############################################################################
+#   Travel Research and Planning Crew                                         #
+#                                                                             #
+#   Author: Shyam Vaidhyanathan                                               #
+#                                                                             #
+###############################################################################
 
-reporting_task:
+
+country_research_task:
+  role: 
+    Country Researcher and Planner for {Country} for travel between {StartDate} and {EndDate} from {HomeCountry}
+  description: 
+    You are tasked with gathering detailed information about {Country} for a prospective traveller.
+    The traveller is planning to travel from {HomeCountry} to {Country} between {StartDate} and {EndDate}.
+    You will need to gather information from various sources, including websites, articles, and travel guides.
+    Your goal is to create a comprehensive report that covers all aspects of {Country} that a traveller should know.      
+    The report should be well-organized, easy to read, and include all relevant information.
+    Do not summarizse or skip any section.
+    You will need to research the following sections in detail.
+    <sections>
+    <section> Basics about {Country} - Gather information about  {Country} and the first thing one thinks about.   </section>
+    <section> Travel Permits - Gather information  about visa requirements for citizens of {HomeCountry} to travel to {Country}. </section>
+    <section> Tourisism Highlights of {Country} - Gather information  about the highlights for tourists going to {Country} </section>
+    <section> Political Situation - Gather information  about  the history of {Country} and the civic system there. Research facts about the type of government, do they have elections and if so when is the next one. Is there any unrest or anything that could be trouble for travellers to {Country}? </section>
+    <section> Weather- Gather information  about  the weather of {Country} generally speaking and specifically in the{StartDate} to {EndDate} timeframe. </section>
+    <section> Food - Gather information  about  the foods of {Country} and it's history. List the top delicacies , top desserts , top beverages in {Country} </section>
+    <section> Religion and Culture - Gather information  about the religions followed in {Country}, the history of religions in {Country} and anything unique that a tourist should be aware of. </section>
+    <section> Must Visit - Gather information  about  the top tourism spots in {Country} and any unique facts or preparations required to visit them. </section>
+    <section> Recent News - Gather information about recent events and news headlines from {Country} as some of them could be valuable for a tourist.</section>
+    <section> Security Threat - Gather information about all security threats in {Country}. Add the "US State Department" threat level for {Country} in your report.</section>
+    <section> Currency and Cost - Gather information about the curreny and approximate cost of travel to {Country} What does an average meal cost? </section>
+    <section> Health - Gather information on Vaccinations and any other health related requirements for a tourist to {Country}</section>
+    <section> Suggested Itinerary-  Create a suggested itinerary as seen on other travel sites and travel blogs. </section>
+    <section> Holidays - Gather information about the holidays in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Closures - Gather information about any closures or public places in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Travel Tips - Gather information about travel tips for tourists to {Country}. </section>
+    <section> Travel Safety - Gather information about travel safety in {Country}. </section>
+    <section> Travel Insurance - Gather information about travel insurance for tourists to {Country}. </section>
+    <section> Emergency Contacts - Gather information about emergency contacts in {Country} for tourists. What is the emergency number like the 911 in USA ? </section>
+    <section> Local Customs - Gather information about local customs and etiquette in {Country}. </section>
+    <section> Language - Gather information about the languages spoken in {Country} and any language tips for tourists. </section>
+    <section> Transportation - Gather information about the transportation options in {Country}. How do tourists get around? </section>
+    <section> Accommodations - Gather information about the types of accommodations available in {Country}. What are the best areas to stay in? </section>
+    <section> Local Laws - Gather information about the local laws in {Country} that tourists should be aware of. </section>
+    <section> Local Cuisine - Gather information about the local cuisine in {Country} and any unique dishes that tourists should try. </section>
+    <section> Local Festivals - Gather information about any local festivals or events happening in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Local Transportation - Gather information about the local transportation options in {Country}. How do tourists get around? </section>
+    <section> Local Shopping - Gather information about the local shopping options in {Country}. What are the best places to shop? </section>
+    <section> Local Entertainment - Gather information about the local entertainment options in {Country}. What are the best places to go for entertainment? </section>
+    <section> Local Nightlife - Gather information about the local nightlife options in {Country}. What are the best places to go for nightlife? </section> 
+    <section> Local Sports - Gather information about the local sports teams and events in {Country}. What are the best places to go for sports? </section>
+    <section> Local Arts and Culture - Gather information about the local arts and culture scene in {Country}. What are the best places to go for arts and culture? </section>  
+    <section> Local History - Gather information about the local history of {Country}. What are the best places to go for history? </section>
+    <section> Local Nature and Parks - Gather information about the local nature and parks in {Country}. What are the best places to go for nature and parks? </section>    
+
+
+    </sections>
+    Make sure to include all the information you gather.
+
+    
+    Provide the source URL for the information you gather in each section.
+
+    If you cannot find any information for a section, then return NULL for that section.
+    Make sure to include all the information you gather.
+
+    Using tools at your disposal look up many different websites to gather the information you are looking for about {Country}
+    Do all your searches as many times as you require on as many websites as you see relevant. 
+    Search through these  
+    https://www.wikipedia.org
+    https://www.countryreports.org
+    https://www.cia.gov/the-world-factbook/countries
+    https://kids.nationalgeographic.com/geography/countries
+    https://ourworldindata.org/countries
+    https://www.factmonster.com/world/countries
+    https://www.tripadvisor.com
+    https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html
+    https://www.lonelyplanet.com
+    https://www.bbc.com/news/world
+    https://www.nationalgeographic.com/travel/destinations
+    https://www.fodors.com/world
+    https://www.frommers.com/destinations
+    https://www.roughguides.com/destinations      
+
+    Do not limit yourself to these websites.
+
+
+  expected_output: 
+    All the information gathered for travel between {StartDate} and {EndDate} from {HomeCountry} presented in a Markdown format. 
+  agent: country_researcher_and_planning_agent
+
+
+
+country_planner_task:
+  role: 
+    Country Planner for {Country} for travel between {StartDate} and {EndDate} from {HomeCountry}
+
+  description: 
+    You are tasked with creating a detailed travel plan using for a prospective traveller to {Country} from {HomeCountry} between {StartDate} and {EndDate}.
+    Provide the source URL for the information you gather in each section. Be as detailed as possible.
+    The plan should include the following sections 
+    <sections>
+    <section> Day 1 - Provide a detailed plan for the first day in {Country}, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    <section> Day 2 - Provide a detailed plan for the second day in {Country}, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    <section> Day 3 - Provide a detailed plan for the third day in {Country}, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    .
+    .
+    .
+    and so on until the end of the travel period.
+    If there is not much to do then only use as many days as the travel period deserves and plan a good travel plan for {Country}.
+      
+  expected_output: 
+    All the planning done presented in a Markdown format.   
+  agent: country_researcher_and_planning_agent
+
+
+
+
+city_researcher_task:
+  role: 
+    City Researcher 
+
+  description:
+    You are tasked with gathering information about each city. 
+    For each city name you will need to gather detailed information that a prospective traveller should know and hence research the following sections in detail. 
+    Provide details for every city in your report
+    Provide the source URL for the information you gather in each section.
+    <sections>
+    <section> Basics - Gather information about the city and the first thing one thinks about.   </section>
+    <section> Travel Passes- Gather information about any transit passes which might be recommended for tourists. </section>
+    <section> Tourisism Highlights of the city - Gather information  about the highlights for tourists going to the city </section>
+    <section> Political Situation - Gather information  about  the history of the city and if there have been any recent events to be concerned about as a Tourist to the city? </section>
+    <section> Weather- Gather information  about  the weather of the city generally speaking and specifically in the {StartDate} to {EndDate} timeframe. What weather related preparations would be recommended for a Tourist to the city ? </section>
+    <section> Food - Gather information  about  the foods and beverages unique to the city and their history. List the top delicacies , top desserts , top beverages in the city </section>
+    <section> Religion and Culture - Gather information  about the religions followed in the city, the history of religions in the city and anything unique or troublesome that a tourist should be aware of. </section> 
+    <section> Must Visit - Gather information  about  the top tourism spots in the city and any unique facts or preparations required to visit them. </section>
+    <section> Recent News - Gather information about recent events and news headlines from the city as some of them could be valuable for a tourist.</section>
+    <section> Security Threat - Gather information about all security threats in the city. Reference the US State Department Threat level for the city in your summary.</section>
+    <section> Currency and Cost - Gather information about the curreny and approximate cost of travel to the city What does an average meal cost in the city? </section>
+    <section> Health - Gather information on Vaccinations and any other health related events or situation in the city that a tourist to the city should be aware of </section>
+    <section> Suggested Itinerary- Create a suggested itinerary for the city as seen on other travel sites and travel blogs. </section>
+    <section> Closures - Gather information about any closures or public places in the city during the {StartDate} to {EndDate} timeframe. </section>
+    <secondtion> Travel Tips - Gather information about travel tips for tourists to the city. </section>
+    <section> Travel Safety - Gather information about travel safety in the city. </section>  
+    <section> Travel Insurance - Gather information about travel insurance for tourists to the city. </section>
+    <section> Emergency Contacts - Gather information about emergency contacts in the city for tourists.  </section>
+    <section> Local Customs - Gather information about local customs and etiquette in the city. </section>
+    <section> Language - Gather information about the languages spoken in the city and any language tips for tourists. </section>
+    <section> Transportation - Gather information about the transportation options in the city. How do tourists get around? Is there a city travel pass or sorts and how to buy that ? </section>
+    <section> Accommodations - Gather information about the types of accommodations available in the city. What are the best areas to stay in? </section>
+    <section> Local Laws - Gather information about the local laws in the city that tourists should be aware of. </section> 
+    </sections>
+    Make sure to include all the information you gather in as much detail as possible.
+   
+
+  expected_output: 
+    All the research done about each and every city presented in Markdown format.   
+  
+  agent: city_researcher_and_planning_agent
+
+
+
+
+city_planner_task:
+  role: 
+    City Planner.
+
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    You are tasked with creating a detailed travel plan using the output of the city_researcher_task.  
+    For each city the plan should include the following sections: 
+    Provide the source URL for the information you gather in each section.
+    
+    <sections>
+    <section> Day 1 - Provide a detailed plan for the first day in the city, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    <section> Day 2 Provide a detailed plan for the first day in the city, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    <section> Day 3 - Provide a detailed plan for the first day in the city, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>
+    <section> Day 4 - Provide a detailed plan for the first day in the city, including places to visit, activities to do, restaurants, bars, events and any other relevant information. </section>  
+    ..
+    ..
+    ..
+    and so on until the end of the travel period.
+    If there is not much to do then only use as many days as the city deserves and plan a good travel plan for the city.
+    Make sure to include all the information you gather in as much detail as possible.
+    
+    
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
+    A detailed day by day travel plan for each city presented in Markdown format.    
+  agent: city_researcher_and_planning_agent
+
+
+
+
+
+final_reporting_task:
+  role: 
+    Final Report Creation Task.
+
+  description: 
+    You are tasked with creating a detailed report based on the information gathered so far from the country_research_task, country_planner_task, city_research_task and  city_planner_task.
+    The report should be clear, very detailed and use to follow along as a tourist. Do not skip any section. Every section should be full of information and atleast 300 words long.
+    Make sure to include all the information you gather in as much detail as possible.
+    Provide the source URL for any and all the information you used in every section. 
+  
+    At the country level the report should include the following sections-
+    <sections>
+    <section> Basics about {Country} - Gather information about  {Country} and the first thing one thinks about.   </section>
+    <section> Travel Permits - Gather information  about visa requirements for citizens of {HomeCountry} to travel to {Country}. </section>
+    <section> Tourisism Highlights of {Country} - Gather information  about the highlights for tourists going to {Country} </section>
+    <section> Political Situation - Gather information  about  the history of {Country} and the civic system there. Research facts about the type of government, do they have elections and if so when is the next one. Is there any unrest or anything that could be trouble for travellers to {Country}? </section>
+    <section> Weather- Gather information  about  the weather of {Country} generally speaking and specifically in the{StartDate} to {EndDate} timeframe. </section>
+    <section> Food - Gather information  about  the foods of {Country} and it's history. List the top delicacies , top desserts , top beverages in {Country} </section>
+    <section> Religion and Culture - Gather information  about the religions followed in {Country}, the history of religions in {Country} and anything unique that a tourist should be aware of. </section>
+    <section> Must Visit - Gather information  about  the top tourism spots in {Country} and any unique facts or preparations required to visit them. </section>
+    <section> Recent News - Gather information about recent events and news headlines from {Country} as some of them could be valuable for a tourist.</section>
+    <section> Security Threat - Gather information about all security threats in {Country}. Add the "US State Department" threat level for {Country} in your report.</section>
+    <section> Currency and Cost - Gather information about the curreny and approximate cost of travel to {Country} What does an average meal cost? </section>
+    <section> Health - Gather information on Vaccinations and any other health related requirements for a tourist to {Country}</section>
+    <section> Suggested Itinerary-  Create a suggested itinerary as seen on other travel sites and travel blogs. </section>
+    <section> Holidays - Gather information about the holidays in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Closures - Gather information about any closures or public places in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Travel Tips - Gather information about travel tips for tourists to {Country}. </section>
+    <section> Travel Safety - Gather information about travel safety in {Country}. </section>
+    <section> Travel Insurance - Gather information about travel insurance for tourists to {Country}. </section>
+    <section> Emergency Contacts - Gather information about emergency contacts in {Country} for tourists. What is the emergency number like the 911 in USA ? </section>
+    <section> Local Customs - Gather information about local customs and etiquette in {Country}. </section>
+    <section> Language - Gather information about the languages spoken in {Country} and any language tips for tourists. </section>
+    <section> Transportation - Gather information about the transportation options in {Country}. How do tourists get around? </section>
+    <section> Accommodations - Gather information about the types of accommodations available in {Country}. What are the best areas to stay in? </section>
+    <section> Local Laws - Gather information about the local laws in {Country} that tourists should be aware of. </section>
+    <section> Local Cuisine - Gather information about the local cuisine in {Country} and any unique dishes that tourists should try. </section>
+    <section> Local Festivals - Gather information about any local festivals or events happening in {Country} during the {StartDate} to {EndDate} timeframe. </section>
+    <section> Local Transportation - Gather information about the local transportation options in {Country}. How do tourists get around? </section>
+    <section> Local Shopping - Gather information about the local shopping options in {Country}. What are the best places to shop? </section>
+    <section> Local Entertainment - Gather information about the local entertainment options in {Country}. What are the best places to go for entertainment? </section>
+    <section> Local Nightlife - Gather information about the local nightlife options in {Country}. What are the best places to go for nightlife? </section> 
+    <section> Local Sports - Gather information about the local sports teams and events in {Country}. What are the best places to go for sports? </section>
+    <section> Local Arts and Culture - Gather information about the local arts and culture scene in {Country}. What are the best places to go for arts and culture? </section>  
+    <section> Local History - Gather information about the local history of {Country}. What are the best places to go for history? </section>
+    <section> Local Nature and Parks - Gather information about the local nature and parks in {Country}. What are the best places to go for nature and parks? </section>    
+    </sections>
+
+    For each city the following sections should be included-
+     <sections>
+    <section> Basics - Gather information about the city and the first thing one thinks about.   </section>
+    <section> Travel Passes- Gather information about any transit passes which might be recommended for tourists. </section>
+    <section> Tourisism Highlights of the city - Gather information  about the highlights for tourists going to the city </section>
+    <section> Political Situation - Gather information  about  the history of the city and if there have been any recent events to be concerned about as a Tourist to the city? </section>
+    <section> Weather- Gather information  about  the weather of the city generally speaking and specifically in the {StartDate} to {EndDate} timeframe. What weather related preparations would be recommended for a Tourist to the city ? </section>
+    <section> Food - Gather information  about  the foods and beverages unique to the city and their history. List the top delicacies , top desserts , top beverages in the city </section>
+    <section> Religion and Culture - Gather information  about the religions followed in the city, the history of religions in the city and anything unique or troublesome that a tourist should be aware of. </section> 
+    <section> Must Visit - Gather information  about  the top tourism spots in the city and any unique facts or preparations required to visit them. </section>
+    <section> Recent News - Gather information about recent events and news headlines from the city as some of them could be valuable for a tourist.</section>
+    <section> Security Threat - Gather information about all security threats in the city. Reference the US State Department Threat level for the city in your summary.</section>
+    <section> Currency and Cost - Gather information about the curreny and approximate cost of travel to the city What does an average meal cost in the city? </section>
+    <section> Health - Gather information on Vaccinations and any other health related events or situation in the city that a tourist to the city should be aware of </section>
+    <section> Suggested Itinerary- Create a suggested itinerary for the city as seen on other travel sites and travel blogs. </section>
+    <section> Closures - Gather information about any closures or public places in the city during the {StartDate} to {EndDate} timeframe. </section>
+    <secondtion> Travel Tips - Gather information about travel tips for tourists to the city. </section>
+    <section> Travel Safety - Gather information about travel safety in the city. </section>  
+    <section> Travel Insurance - Gather information about travel insurance for tourists to the city. </section>
+    <section> Emergency Contacts - Gather information about emergency contacts in the city for tourists.  </section>
+    <section> Local Customs - Gather information about local customs and etiquette in the city. </section>
+    <section> Language - Gather information about the languages spoken in the city and any language tips for tourists. </section>
+    <section> Transportation - Gather information about the transportation options in the city. How do tourists get around? Is there a city travel pass or sorts and how to buy that ? </section>
+    <section> Accommodations - Gather information about the types of accommodations available in the city. What are the best areas to stay in? </section>
+    <section> Local Laws - Gather information about the local laws in the city that tourists should be aware of. </section> 
+    <section> Travel Planner - Gather information about the travel plan for the city based on the output of the city_planner_task. This should be a day by day plan with all the details of places to eat, places to see , local transportation by times and how to go from one spot to another. </section>
+
+    </sections>
+
+    
+  
+  expected_output: 
+    A detailed report containing all the sections requested with each section full of information. 
     Formatted as markdown without '```'
-  agent: reporting_analyst
+  
+  agent: final_reporting_agent
